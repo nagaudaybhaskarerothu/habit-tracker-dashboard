@@ -10,10 +10,11 @@ const defaultHabits = [
   { id: 5, name: "Aptitude practice", emoji: "📊" },
   { id: 6, name: "React.js practice", emoji: "⚛️" },
   { id: 7, name: "Project work", emoji: "💻" },
-  { id: 8, name: "English practice", emoji: "🗣️" },
-  { id: 9, name: "Django", emoji: "🐍" },
-  { id: 10, name: "Plan tomorrow", emoji: "📝" },
-  { id: 11, name: "Avoid social media", emoji: "📵" },
+  { id: 8, name: "Semester works", emoji: "✅" },
+  { id: 9, name: "English practice", emoji: "🗣️" },
+  { id: 10, name: "Django", emoji: "🐍" },
+  { id: 11, name: "Plan tomorrow", emoji: "📝" },
+  { id: 12, name: "Avoid social media", emoji: "📵" },
 ];
 
 const getDateKey = (date) => {
