@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+/* =================================
+   GLOBAL STYLES
+================================= */
+
 :root {
   font-family: 'Inter', sans-serif;
   color: #f5f7ff;
@@ -9,6 +13,7 @@
   -webkit-font-smoothing: antialiased;
 
   --bg: #0b0f19;
+  --sidebar: #0f1422;
   --panel: #111725;
   --panel-hover: #171f30;
   --border: #273247;
@@ -26,18 +31,18 @@
   box-sizing: border-box;
 }
 
-html {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-  background: var(--bg);
-}
-
-body {
+html,
+body,
+#root {
   width: 100%;
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+}
+
+body {
+  padding: 0;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-size: 14px;
@@ -45,10 +50,8 @@ body {
 }
 
 #root {
-  width: 100%;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  max-width: none !important;
+  padding: 0 !important;
 }
 
 button,
@@ -81,24 +84,30 @@ p {
   line-height: 1.7;
 }
 
-button,
-input {
+img,
+svg,
+canvas {
   max-width: 100%;
 }
 
-/* Main layout */
+/* =================================
+   FULL-WIDTH APP LAYOUT
+================================= */
 
 .app-shell {
-  display: flex;
+  display: flex !important;
   align-items: stretch;
-  width: 100%;
+  width: 100% !important;
+  max-width: none !important;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   background: var(--bg);
 }
 
-/* Sidebar */
+/* =================================
+   SIDEBAR
+================================= */
 
 .sidebar {
   position: sticky;
@@ -107,18 +116,19 @@ input {
   flex: 0 0 260px;
   flex-direction: column;
   width: 260px;
+  min-width: 260px;
   height: 100vh;
   min-height: 600px;
   padding: 28px 20px;
   overflow-y: auto;
-  background: #0f1422;
+  background: var(--sidebar);
   border-right: 1px solid var(--border);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   margin-bottom: 62px;
   font-size: 23px;
   font-weight: 800;
@@ -128,6 +138,7 @@ input {
 
 .brand-mark {
   display: grid;
+  flex: 0 0 40px;
   place-items: center;
   width: 40px;
   height: 40px;
@@ -145,11 +156,11 @@ input {
   color: var(--muted);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.5px;
 }
 
 .nav-heading {
-  margin: 0 0 18px;
+  margin-bottom: 18px;
   padding-left: 12px;
 }
 
@@ -167,7 +178,6 @@ input {
   border: 1px solid transparent;
   border-radius: 12px;
   font-size: 14px;
-  transition: 0.2s ease;
 }
 
 .nav-item span {
@@ -178,7 +188,6 @@ input {
 .nav-item.active {
   color: var(--purple);
   background: var(--purple-bg);
-  border-color: transparent;
 }
 
 .sidebar-bottom {
@@ -236,17 +245,39 @@ input {
   font-weight: 700;
 }
 
-/* Main dashboard */
+/* =================================
+   MAIN CONTENT: USE REMAINING WIDTH
+================================= */
 
 .main-content {
-  flex: 1 1 0%;
-  width: 0;
-  min-width: 0;
-  max-width: none;
-  margin: 0;
-  padding: 36px clamp(24px, 3vw, 52px);
-  overflow: hidden;
+  flex: 1 1 0% !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 36px clamp(24px, 3vw, 52px) !important;
+  overflow: visible;
 }
+
+/* Make dashboard sections fill main content */
+
+.main-content > *,
+.stats-grid,
+.content-grid,
+.panel,
+.stat-card {
+  max-width: none;
+}
+
+.stats-grid,
+.content-grid {
+  width: 100% !important;
+  min-width: 0;
+}
+
+/* =================================
+   TOP HEADER
+================================= */
 
 .topbar {
   display: flex;
@@ -265,8 +296,7 @@ input {
 
 .topbar h1 {
   margin: 0;
-  color: var(--text);
-  font-size: clamp(27px, 2.2vw, 38px);
+  font-size: clamp(28px, 2.3vw, 40px);
   font-weight: 800;
   letter-spacing: -1.5px;
 }
@@ -289,7 +319,9 @@ input {
   border-color: var(--purple);
 }
 
-/* Welcome */
+/* =================================
+   WELCOME SECTION
+================================= */
 
 .welcome {
   display: flex;
@@ -305,8 +337,8 @@ input {
 }
 
 .welcome h2 {
-  margin: 0 0 12px;
-  font-size: clamp(22px, 1.8vw, 30px);
+  margin-bottom: 12px;
+  font-size: clamp(23px, 1.8vw, 30px);
   letter-spacing: -0.8px;
 }
 
@@ -322,13 +354,14 @@ input {
   font-size: 28px;
 }
 
-/* Statistics cards */
+/* =================================
+   STATISTICS CARDS
+================================= */
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 18px;
-  width: 100%;
   margin-bottom: 22px;
 }
 
@@ -348,7 +381,6 @@ input {
   color: var(--muted);
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.4px;
 }
 
 .stat-icon {
@@ -417,19 +449,21 @@ input {
   background: var(--orange);
 }
 
-/* Calendar and checklist layout */
+/* =================================
+   CALENDAR + DAILY CHECKLIST
+================================= */
 
 .content-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr) !important;
   align-items: start;
   gap: 20px;
-  width: 100%;
   margin-bottom: 22px;
 }
 
 .panel {
   min-width: 0;
+  width: 100%;
   padding: 24px;
   background: var(--panel);
   border: 1px solid var(--border);
@@ -451,10 +485,11 @@ input {
 .panel-heading h3 {
   margin: 0;
   font-size: 20px;
-  letter-spacing: -0.4px;
 }
 
-/* Month navigation */
+/* =================================
+   MONTH NAVIGATION
+================================= */
 
 .month-switch {
   display: flex;
@@ -482,7 +517,9 @@ input {
   font-size: 21px;
 }
 
-/* Calendar */
+/* =================================
+   CALENDAR GRID
+================================= */
 
 .calendar-grid {
   display: grid;
@@ -569,7 +606,9 @@ input {
   gap: 6px;
 }
 
-/* Daily checklist */
+/* =================================
+   TODAY'S HABITS
+================================= */
 
 .count-badge {
   display: inline-flex;
@@ -607,13 +646,12 @@ input {
   color: var(--purple);
 }
 
-/* Habit rows */
-
 .habit-list {
   display: flex;
   flex-direction: column;
   gap: 5px;
   width: 100%;
+  min-width: 0;
 }
 
 .habit-row {
@@ -627,7 +665,6 @@ input {
   background: transparent;
   border: 1px solid transparent;
   border-radius: 10px;
-  transition: background 0.2s ease;
 }
 
 .habit-row:hover {
@@ -687,7 +724,7 @@ input {
   border: 1px solid transparent;
   border-radius: 7px;
   font-size: 19px;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .delete-button:hover {
@@ -696,7 +733,9 @@ input {
   opacity: 1;
 }
 
-/* Add habit form */
+/* =================================
+   ADD HABIT FORM
+================================= */
 
 .add-button {
   width: 100%;
@@ -733,8 +772,8 @@ input {
 }
 
 .add-form .emoji-input {
-  width: 54px;
   flex: 0 0 54px;
+  width: 54px;
 }
 
 .save-button,
@@ -753,7 +792,9 @@ input {
   font-weight: 700;
 }
 
-/* Insights chart */
+/* =================================
+   INSIGHTS CHART
+================================= */
 
 .insights-grid {
   grid-template-columns: minmax(0, 1fr);
@@ -813,7 +854,7 @@ input {
 
 .bars {
   position: absolute;
-  inset: 0 0 0;
+  inset: 0;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -846,7 +887,9 @@ input {
   font-size: 9px;
 }
 
-/* Footer */
+/* =================================
+   FOOTER
+================================= */
 
 .footer {
   display: flex;
@@ -860,39 +903,24 @@ input {
   font-size: 11px;
 }
 
-/* Buttons and inputs */
-
-button {
-  font-family: inherit;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-input {
-  max-width: 100%;
-  font-family: inherit;
-}
-
-input::placeholder {
-  color: #7183a5;
-}
-
-/* Laptop screens */
+/* =================================
+   RESPONSIVE: LAPTOPS
+================================= */
 
 @media (max-width: 1100px) {
   .sidebar {
     flex-basis: 220px;
     width: 220px;
+    min-width: 220px;
     padding: 24px 14px;
   }
 
   .main-content {
-    padding: 28px 22px;
+    padding: 26px 20px !important;
   }
 
   .content-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
   .stats-grid {
@@ -904,7 +932,9 @@ input::placeholder {
   }
 }
 
-/* Tablets */
+/* =================================
+   RESPONSIVE: TABLETS
+================================= */
 
 @media (max-width: 760px) {
   .app-shell {
@@ -947,13 +977,13 @@ input::placeholder {
   }
 
   .main-content {
-    width: 100%;
-    padding: 22px 16px;
+    width: 100% !important;
+    padding: 22px 16px !important;
     overflow: visible;
   }
 
   .stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 
   .topbar h1 {
@@ -961,11 +991,13 @@ input::placeholder {
   }
 }
 
-/* Mobile phones */
+/* =================================
+   RESPONSIVE: MOBILE
+================================= */
 
 @media (max-width: 480px) {
   .main-content {
-    padding: 18px 12px;
+    padding: 18px 12px !important;
   }
 
   .topbar {
@@ -985,15 +1017,12 @@ input::placeholder {
   }
 
   .stats-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .stat-card {
-    padding: 18px;
-  }
-
+  .stat-card,
   .panel {
-    padding: 15px;
+    padding: 16px;
   }
 
   .panel-heading {
